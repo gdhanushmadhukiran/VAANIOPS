@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  vllm:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: vaaniops_evon_vllm
+    restart: unless-stopped
+    environment:
+      - MODEL_ID=gnani/gnani-evon-v3.3
+      - SERVED_MODEL_NAME=model
+      - MAX_MODEL_LEN=${MAX_MODEL_LEN:-131072}
+      - TENSOR_PARALLEL_SIZE=${TENSOR_PARALLEL_SIZE:-1}
+      - GPU_MEMORY_UTILIZATION=${GPU_MEMORY_UTILIZATION:-0.92}
+      - MAX_NUM_SEQS=${MAX_NUM_SEQS:-16}
+      - HUGGING_FACE_HUB_TOKEN=${HUGGING_FACE_HUB_TOKEN:-}
+    volumes:
+      - hf_cache:/root/.cache/huggingface
+      - /dev/shm:/dev/shm
+    ipc: host
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 180s
+
+  proxy:
+    image: nginx:alpine
+    container_name: vaaniops_evon_proxy
+    restart: unless-stopped
+    depends_on:
+      vllm:
+        condition: service_healthy
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      - EVON_GPU_SECRET=${EVON_GPU_SECRET:-change_this_secret_in_production}
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./certs:/etc/nginx/certs:ro
+
+volumes:
+  hf_cache:
+    name: vaaniops_evon_hf_cache
+

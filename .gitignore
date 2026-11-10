@@ -1,0 +1,53 @@
+# Environments
+.env
+.env.*
+*.env
+!.env.example
+!*.env.example
+!.env.gpu.example
+!*.env.gpu.example
+
+# SQLite databases & local data
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+vaaniops.db
+data/
+*.data
+
+# Python virtual environments & bytecode
+venv/
+.venv/
+*/venv/
+*/.venv/
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+*.egg-info/
+build/
+
+# Node & Frontend builds
+node_modules/
+frontend/node_modules/
+dist/
+frontend/dist/
+.vite/
+frontend/.vite/
+
+# GPU Secrets & TLS Certs
+.env.gpu
+deployment/gpu_evon/.env.gpu
+certs/
+deployment/gpu_evon/certs/
+*.pem
+*.key
+*.crt
+
+# OS and Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.log

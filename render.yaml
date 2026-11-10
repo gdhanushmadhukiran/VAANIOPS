@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: vaaniops-backend
+    runtime: python
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    plan: starter
+    healthCheckPath: /api/health
+    disk:
+      name: vaaniops-data
+      mountPath: /app/data
+      sizeGB: 1
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: DATABASE_URL
+        value: sqlite:////app/data/vaaniops.db
+      - key: FRONTEND_ORIGIN
+        value: "*"
+      - key: GNANI_TIMEOUT_SECONDS
+        value: "60"
+      - key: EVON_ENABLED
+        value: "false"
+      - key: GNANI_API_KEY
+        sync: false
