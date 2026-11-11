@@ -32,8 +32,8 @@ export const Header: React.FC<HeaderProps> = ({
         };
       case 'intelligence':
         return {
-          title: 'Gnani Evon v3.3 Intelligence Studio',
-          subtitle: 'Indic reasoning engine, contextual memory & conversational business assistant',
+          title: 'Intelligence Studio',
+          subtitle: 'Gnani Evon v3.3 Indic reasoning engine & conversational business operations',
         };
       case 'orders':
         return {
@@ -70,7 +70,7 @@ export const Header: React.FC<HeaderProps> = ({
     : 'STANDBY';
 
   return (
-    <header className="sticky top-0 z-30 flex h-20 items-center justify-between border-b border-surface-border bg-white/95 px-6 backdrop-blur-md">
+    <header className="sticky top-0 z-30 flex min-h-[4.5rem] h-auto py-2.5 items-center justify-between border-b border-surface-border bg-white/95 px-4 sm:px-6 backdrop-blur-md">
       <div className="flex items-center space-x-4">
         <button
           onClick={onOpenMobile}
