@@ -45,6 +45,13 @@ def validate_wav_audio(audio_bytes: bytes) -> Tuple[float, int, int]:
             if sample_rate <= 0:
                 raise AudioValidationError("Invalid WAV audio: sample rate must be greater than 0.")
 
+            # Handle streaming chunks where RIFF data chunk size is 0xFFFFFFFF
+            bytes_per_frame = channels * sample_width
+            if bytes_per_frame > 0:
+                max_actual_frames = max(0, (len(audio_bytes) - 44) // bytes_per_frame)
+                if num_frames > max_actual_frames or num_frames == 2147483647:
+                    num_frames = max_actual_frames
+
             duration = num_frames / float(sample_rate)
 
             if duration > MAX_AUDIO_DURATION_SECONDS + 0.1:  # small tolerance for buffer boundaries
