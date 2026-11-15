@@ -8,15 +8,6 @@ from app.services.gnani_evon import evon_service
 router = APIRouter(tags=["health"])
 
 
-def _mask_api_key(key: str) -> str:
-    if not key:
-        return "None"
-    clean = key.strip()
-    if len(clean) <= 6:
-        return "***"
-    return f"{clean[:3]}...{clean[-3:]}"
-
-
 @router.get("/health")
 def get_health():
     return {
@@ -166,7 +157,7 @@ async def check_gnani_health():
         status=overall_status,
         api_key_configured=True,
         key_status="KEY_PRESENT",
-        api_key_preview=_mask_api_key(api_key),
+        api_key_preview=None,
         prisma_status=GnaniServiceStatus(
             configured=True,
             status=prisma_status,
