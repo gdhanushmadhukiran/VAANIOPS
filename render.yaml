@@ -17,7 +17,7 @@ services:
       - key: DATABASE_URL
         value: sqlite:////app/data/vaaniops.db
       - key: FRONTEND_ORIGIN
-        value: "*"
+        value: https://vaaniops.vercel.app
       - key: GNANI_TIMEOUT_SECONDS
         value: "60"
       - key: EVON_ENABLED
