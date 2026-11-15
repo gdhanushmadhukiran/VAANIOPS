@@ -122,7 +122,7 @@ class ExtractedBusinessOrder(BaseModel):
     requires_confirmation: bool = True
     clarification_question: Optional[str] = None
     telugu_summary: Optional[str] = None
-    provider: str = "evon-v3.3"
+    provider: str = "local-rule-engine"
 
 
 class IntelligenceChatRequest(BaseModel):
@@ -143,7 +143,7 @@ class IntelligenceChatResponse(BaseModel):
     suggested_action: Optional[str] = None
     tool_executed: Optional[str] = None
     tool_result: Optional[Any] = None
-    provider: str = "evon-v3.3"
+    provider: str = "local-rule-engine"
     latency_ms: Optional[float] = None
 
 
