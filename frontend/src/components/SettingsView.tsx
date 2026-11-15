@@ -282,9 +282,9 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
           </div>
 
           <div>
-            <span className="font-semibold text-slate-500">Key Masked Preview:</span>
+            <span className="font-semibold text-slate-500">Credential value:</span>
             <div className="mt-1 font-mono font-bold text-slate-800">
-              {gnaniHealth?.api_key_preview || 'None (Variable Empty)'}
+              {gnaniHealth?.api_key_configured ? 'Configured — secret hidden' : 'Not configured'}
             </div>
           </div>
         </div>
