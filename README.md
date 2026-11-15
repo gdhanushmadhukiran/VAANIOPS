@@ -196,6 +196,7 @@ npm run build
 - [Automated Test Report](docs/TEST_REPORT.md)
 - [Live Demonstration Script](docs/DEMO_SCRIPT.md)
 - [Team Contributions](docs/TEAM_CONTRIBUTIONS.md)
+- [Release Readiness & Known Limitations](docs/RELEASE_READINESS.md)
 
 ---
 
