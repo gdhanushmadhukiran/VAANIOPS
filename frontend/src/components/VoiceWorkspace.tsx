@@ -127,7 +127,7 @@ export const VoiceWorkspace: React.FC<VoiceWorkspaceProps> = ({
       setTranscribeResult(transRes);
       setTranscriptText(transRes.transcript);
 
-      // 2. Extract structured business fields via Evon / Intelligence service
+      // 2. Extract structured fields using the local rule engine (Evon GPU inference is not yet enabled)
       let extracted: any;
       try {
         const intel = await api.extractOrderIntelligence(transRes.transcript, languageCode);
