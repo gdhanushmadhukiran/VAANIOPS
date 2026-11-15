@@ -38,7 +38,7 @@ def test_gnani_health_configured_authenticated(client, monkeypatch):
         data = response.json()
         assert data["api_key_configured"] is True
         assert data["key_status"] == "KEY_PRESENT"
-        assert "gn_...345" in data["api_key_preview"]
+        assert data["api_key_preview"] is None  # Never expose even a masked credential fragment
         assert data["prisma_status"]["status"] == "AUTHENTICATION_SUCCESS"
         assert data["timbre_status"]["status"] == "AUTHENTICATION_SUCCESS"
         assert data["status"] == "AUTHENTICATION_SUCCESS"
