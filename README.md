@@ -141,7 +141,7 @@ cd backend
 .\venv\Scripts\python.exe -m pytest -v
 ```
 
-All 32 tests execute in under 5 seconds:
+Run the current test suite; consult `docs/TEST_REPORT.md` for the recorded test snapshot:
 - Audio header & duration boundary tests
 - Telugu entity extraction tests
 - Gnani Prisma v2.5 STT response parsing & error handling
@@ -200,5 +200,5 @@ npm run build
 ---
 
 ## 8. License
-Apache 2.0 / Proprietary — Built for submission before November 10, 2026.
+See the repository license terms and submission-specific rules. This repository does not grant rights to Gnani AI model weights or credentials.
 
