@@ -204,7 +204,7 @@ class IntelligenceService:
             requires_confirmation=True,
             clarification_question=clarification_q,
             telugu_summary=telugu_summary,
-            provider="local-intelligence-engine (Evon verified)",
+            provider="local-rule-engine",
         )
 
     async def process_chat(
@@ -348,7 +348,7 @@ class IntelligenceService:
             missing_fields=[f for f in ["customer_name", "service_type"] if not accumulated_dict.get(f)],
             requires_confirmation=True,
             clarification_question=clarification_question,
-            provider="evon-v3.3",
+            provider="local-rule-engine",
         )
 
         # 7. Record assistant response in conversation memory
@@ -373,7 +373,7 @@ class IntelligenceService:
             tool_executed=tool_executed,
             tool_result=tool_result,
             provider="evon-v3.3",
-            latency_ms=15.0,
+            latency_ms=None,
         )
 
     def get_full_analytics(self, db: Session) -> BusinessAnalyticsResponse:
