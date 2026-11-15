@@ -102,3 +102,27 @@ def test_transcribe_service_unavailable(client, monkeypatch, generate_wav):
         assert response.status_code == 503
         assert "GNANI_SERVICE_UNAVAILABLE" in response.text
 
+
+
+def test_transcribe_rejects_non_wav_filename(client, monkeypatch):
+    monkeypatch.setattr(settings, "GNANI_API_KEY", "test_key")
+    response = client.post(
+        "/api/transcribe",
+        files={"audio_file": ("recording.mp3", b"not audio", "audio/mpeg")},
+        data={"language_code": "te-IN"},
+    )
+    assert response.status_code == 400
+    assert ".wav extension" in response.json()["detail"]
+
+
+def test_transcribe_rejects_upload_over_limit_before_provider_call(client, monkeypatch):
+    from app.services.audio_service import MAX_AUDIO_SIZE_BYTES
+
+    monkeypatch.setattr(settings, "GNANI_API_KEY", "test_key")
+    oversized = b"RIFF" + (b"0" * (MAX_AUDIO_SIZE_BYTES + 1))
+    response = client.post(
+        "/api/transcribe",
+        files={"audio_file": ("recording.wav", oversized, "audio/wav")},
+        data={"language_code": "te-IN"},
+    )
+    assert response.status_code == 413
