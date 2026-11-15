@@ -48,6 +48,7 @@ def test_telugu_dominant_workshop_full_extraction():
     assert result.delivery_date is not None
     assert result.missing_fields == []
     assert result.requires_confirmation is True
+    assert result.provider == "local-rule-engine"
 
 
 def test_missing_fields_detection_and_clarification():
@@ -102,6 +103,8 @@ async def test_multi_turn_context_retention(db_session: Session):
     assert r4.extracted_info.delivery_date is not None
     assert r4.missing_fields == []
     assert r4.suggested_action == "CONFIRM_ORDER"
+    assert r4.provider == "local-rule-engine"
+    assert r4.latency_ms is None
 
 
 def test_duplicate_order_prevention(db_session: Session):
