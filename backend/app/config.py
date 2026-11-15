@@ -1,5 +1,4 @@
 from pathlib import Path
-import os
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from dotenv import load_dotenv
 
@@ -29,11 +28,11 @@ class Settings(BaseSettings):
     PRISMA_ENDPOINT: str = "https://api.vachana.ai/stt/v3"
     TIMBRE_ENDPOINT: str = "https://api.vachana.ai/api/v1/tts/inference"
 
-    # Gnani Evon v3.3 Intelligence Engine settings (Hosted vLLM GPU Server)
+    # Evon is opt-in: never send production traffic to an unprovisioned LLM endpoint.
     EVON_BASE_URL: str = "https://api.vachana.ai/v1"
     EVON_API_KEY: str = ""
     EVON_MODEL: str = "model"
-    EVON_ENABLED: bool = True
+    EVON_ENABLED: bool = False
     EVON_TIMEOUT_SECONDS: float = 30.0
     EVON_TEMPERATURE: float = 0.6
     EVON_TOP_P: float = 0.95
@@ -44,4 +43,3 @@ class Settings(BaseSettings):
 
 
 settings = Settings()
-
